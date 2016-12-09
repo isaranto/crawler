@@ -15,6 +15,7 @@ class Article:
         self.url = url
         soup = make_soup(url)
         self.article_soup = soup.article
+        self.title = soup.find("span", class_="threadTitle").contents[0].strip()
         self.num_pages = int(soup.find("li", class_="next arrow").find_previous_sibling().string)
         self.username = soup.find("a", class_="member-nickname").contents[1]
         self.user_id = soup.find("a", class_="member-nickname").contents[0].get("data-memberid")
@@ -24,7 +25,7 @@ class Article:
 
     def get_comments(self, soup):
         comments = []
-        for page in range(10):
+        for page in range(1):
             page_soup = make_soup(self.url[:-1]+str(page))
             comments_html = page_soup.findAll("div", class_="message")
             for c in comments_html:
@@ -42,7 +43,6 @@ class Comment:
         self.text = soup.find("div", class_="text").find("div", class_="details").text
         self.time = datetime.strptime(soup.find("time").contents[0], '%d/%m/%Y %H:%M')
         self.votes = soup.find("li", class_="stars").get("data-totalvotes")
-        print self.username
 
 
 # we can either use the requests package or urllib2
