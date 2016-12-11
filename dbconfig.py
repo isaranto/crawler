@@ -10,10 +10,9 @@ class database_driver:
         my_passwd = params.get(u'passwd')
         my_db = params.get(u'db')
         self.db = MySQLDatabase(host=my_host,
-                                      user=my_user,
-                                      passwd=my_passwd,
-                                      database=my_db)
-
+                                user=my_user,
+                                passwd=my_passwd,
+                                database=my_db)
 
 
 class BaseModel(Model):
