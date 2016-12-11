@@ -40,7 +40,7 @@ class Article:
 
     def get_comments(self, soup):
         comments = []
-        for page in range(self.num_pages):
+        for page in range(1, self.num_pages+1):
             page_soup = make_soup(self.url[:-1]+str(page))
             comments_html = page_soup.findAll("div", class_="message")
             for c in comments_html:
